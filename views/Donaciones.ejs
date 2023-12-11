@@ -1,0 +1,177 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+      }
+      body{
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="modal fade" id="EditarModalDonaciones" tabindex="-1" aria-labelledby="EditarModalDonacionesLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="EditarModalDonaciones">Editar Donación</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/donacion/editar" method="POST">
+              <input type="hidden" id="id_editar" name="id_editar">
+              <div class="mb-3">
+                <label for="donador_editar" class="form-label">Donador:</label>
+                <input type="text" class="form-control" id="donador_editar" name="donador_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="articulo_editar" class="form-label">Artículo:</label>
+                <input type="text" class="form-control" id="articulo_editar" name="articulo_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="cantidad_editar" class="form-label">Cantidad:</label>
+                <input type="number" class="form-control" id="cantidad_editar" name="cantidad_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion_editar" class="form-label">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion_editar" name="descripcion_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="fecha_editar" class="form-label">Fecha:</label>
+                <input type="text" class="form-control" id="fecha_editar" name="fecha_editar" required>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="RegistroModalDonaciones" tabindex="-1" aria-labelledby="Registro" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="RegistroModalDonaciones">Registro Donación</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/donacion/crear" method="POST" class="left-align-form">
+              <div class="mb-3">
+                <label for="donador_registro" class="form-label">Donador:</label>
+                <input type="text" class="form-control" id="donador_registro" name="donador_registro"
+                  placeholder="Ingresa el nombre del donador" required>
+              </div>
+              <div class="mb-3">
+                <label for="articulo_registro" class="form-label">Artículo:</label>
+                <input type="text" class="form-control" id="articulo_registro" name="articulo_registro"
+                  placeholder="Ingresa el artículo recibido" required>
+              </div>
+              <div class="mb-3">
+                <label for="cantidad_registro" class="form-label">Cantidad:</label>
+                <input type="number" class="form-control" id="cantidad_registro" name="cantidad_registro"
+                  placeholder="Ingresa la cantidad del artículo recibido" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion_registro" class="form-label">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion_registro" name="descripcion_registro"
+                  placeholder="Ingresa los detalles de la donación" required>
+              </div>
+              <div class="mb-3">
+                <label for="fecha_registro" class="form-label">Fecha:</label>
+                <input type="date" class="form-control" id="fecha_registro" name="fecha_registro"
+                  placeholder="Ingresa la fecha de recibimiento de la donación" required>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between aling-items-center">
+          <h1 class="text-primary mb-0">Donaciones</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="#" class="text-dark text-decoration-none me-2" data-bs-toggle="modal"
+                data-bs-target="#RegistroModalDonaciones">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tableClientes" class="table table-hover" style="text-align:center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Donador</th>
+                <th>Artículo</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% donacion.forEach((donacion)=> { %>
+                <tr>
+                  <td style="display: none;"><%= donacion._id %></td>
+                  <td><%= donacion.donador %></td>
+                  <td><%= donacion.articulo %></td>
+                  <td><%= donacion.cantidad %></td>
+                  <td><%= donacion.descripcion %></td>
+                  <td><%= donacion.fecha %></td>
+                  <td class="text-center">
+                    <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                      <i id="toggleIcon1" class="bi bi-toggle-on text-success h3"
+                        onclick="toggleSwitch('toggleIcon1')"></i>
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <a href="#" class="text-dark text-decoration-none btnEditarDonacion" data-bs-toggle="modal"
+                      data-bs-target="#EditarModalDonaciones">
+                      <i class="bi bi-pencil-square h4"></i>
+                    </a>
+                    <a href="#" class="text-dark text-decoration-none">
+                      <i class="bi bi-eye h4"></i>
+                    </a>
+                    <!-- <a href="/donacion/borrar/<%= donacion._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%- include('Template/Footer') %>
+  </body>
+
+  </html>

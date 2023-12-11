@@ -1,0 +1,51 @@
+<%- include('Template/Cabecera',{tituloweb: 'Pagina de inicio' }) %>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EJS</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Express validator</h1>
+      <form action="/registrarInde" method="POST">
+        <div class="mb-3">
+          <label for="nya" class="form-label">Nombre completo</label>
+          <input id="nya" name="nya" type="text" class="form-control"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.nya %><% } %>">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-mail</label>
+          <input id="email" name="email" type="text" class="form-control"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.email %><% } %>">
+        </div>
+        <div class="mb-3">
+          <label for="edad" class="form-label">Edad</label>
+          <input id="edad" name="edad" type="text" class="form-control"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.edad %><% } %>">
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+      <!-- Alerta -->
+      <% if(typeof validaciones !='undefined' ) { %>
+        <% validaciones.forEach((validacion)=> { %>
+          <div class="toast-container">
+            <div class="toast" role="alert" aria-live="assertive" data-bs-autohide="false">
+              <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                  <rect width="100%" height="100%" fill="#007aff"></rect>
+                </svg>
+                <strong class="me-auto">¡Atención!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                <strong>
+                  <%= validacion.msg %>
+                </strong>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+            <% } %>
+    </div>
+    <%- include('Template/Footer') %>

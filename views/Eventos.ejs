@@ -1,0 +1,216 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+        overflow-y: scroll;
+      }
+      body{
+        overflow-y: scroll;
+      }
+      .container::-webkit-scrollbar {
+        width: 0; 
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="modal fade" id="EditarModalEventos" tabindex="-1" aria-labelledby="EditarModalEventosLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="EditarModalEventos">Editar Evento</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/evento/editar" method="POST">
+              <input type="hidden" id="id_editar" name="id_editar">
+              <div class="mb-3">
+                <label for="nombre_editar" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre_editar" name="nombre_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="objetivo_editar" class="form-label">Objetivo:</label>
+                <input type="text" class="form-control" id="objetivo_editar" name="objetivo_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="presupuesto_editar" class="form-label">Presupuesto:</label>
+                <input type="number" class="form-control" id="presupuesto_editar" name="presupuesto_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="fecha_editar" class="form-label">Fecha:</label>
+                <input type="text" class="form-control " id="fecha_editar" name="fecha_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="horaIni_editar" class="form-label">Hora de inicio:</label>
+                <input type="time" class="form-control" id="horaIni_editar" name="horaIni_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="horaFin_editar" class="form-label">Hora de fin:</label>
+                <input type="time" class="form-control" id="horaFin_editar" name="horaFin_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="direccion_editar" class="form-label">Direccion:</label>
+                <input type="text" class="form-control" id="direccion_editar" name="direccion_editar" required>
+              </div>
+              <div class="mb-3">
+                <label for="barrio_editar" class="form-label">Barrio:</label>
+                <input type="text" class="form-control" id="barrio_editar" name="barrio_editar" required>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="RegistroModalEventos" tabindex="-1" aria-labelledby="Registro" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="RegistroModalEventos">Registro Evento</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/evento/crear" method="POST" class="left-align-form" id="evento">
+              <div class="mb-3 input-control">
+                <label for="nombre_registro" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre_registro" name="nombre_registro"
+                  placeholder="Ingresa un nombre" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="objetivo_registro" class="form-label">Objetivo:</label>
+                <input type="text" class="form-control" id="objetivo_registro" name="objetivo_registro"
+                  placeholder="Ingresa el objetivo del evento" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="presupuesto_registro" class="form-label">Presupuesto:</label>
+                <input type="number" class="form-control" id="presupuesto_registro" name="presupuesto_registro"
+                  placeholder="Ingresa el presupuesto para la actividad" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="fecha_registro" class="form-label">Fecha:</label>
+                <input type="date" class="form-control" id="fecha_registro" name="fecha_registro"
+                  placeholder="Ingresa la fecha del evento" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="horaIni_registro" class="form-label">Hora de inicio:</label>
+                <input type="time" class="form-control" id="horaIni_registro" name="horaIni_registro"
+                  placeholder="Ingresa la hora de inicio del evento" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="horaFin_registro" class="form-label">Hora de fin:</label>
+                <input type="time" class="form-control" id="horaFin_registro" name="horaFin_registro"
+                  placeholder="Ingresa la hora de finalización del evento" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="direccion_registro" class="form-label">Direccion:</label>
+                <input type="text" class="form-control" id="direccion_registro" name="direccion_registro"
+                  placeholder="Ingresa la dirección del evento" required>
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="barrio_registro" class="form-label">Barrio:</label>
+                <input type="text" class="form-control" id="barrio_registro" name="barrio_registro"
+                  placeholder="Ingresa el barrio de la direccion" required>
+                <div class="error"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between aling-items-center">
+          <h1 class="text-primary mb-0">Eventos</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="#" class="text-dark text-decoration-none me-2" data-bs-toggle="modal"
+                data-bs-target="#RegistroModalEventos">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tableClientes" class="table table-hover" style="text-align:center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Nombre</th>
+                <th>Objetivo</th>
+                <th>Presupuesto</th>
+                <th>Fecha</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Direccion</th>
+                <th>Barrio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% evento.forEach((evento)=> { %>
+                <tr>
+                  <td style="display: none;"><%= evento._id %></td>
+                  <td><%= evento.nombre %></td>
+                  <td><%= evento.objetivo %></td>
+                  <td><%= evento.presupuesto %></td>
+                  <td><%= evento.fecha %></td>
+                  <td><%= evento.horaIni %></td>
+                  <td><%= evento.horaFin %></td>
+                  <td><%= evento.direccion %></td>
+                  <td><%= evento.barrio %></td>
+                  <td class="text-center">
+                    <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                      <i id="toggleIcon1" class="bi bi-toggle-on text-success h3"
+                        onclick="toggleSwitch('toggleIcon1')"></i>
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <a href="#" class="text-dark text-decoration-none btnEditarEvento" data-bs-toggle="modal"
+                      data-bs-target="#EditarModalEventos">
+                      <i class="bi bi-pencil-square h4"></i>
+                    </a>
+                    <!-- <a href="/evento/borrar/<%= evento._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%- include('Template/Footer') %>

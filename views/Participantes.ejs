@@ -1,0 +1,457 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+        overflow-y: scroll;
+      }
+      body{
+        overflow-y: scroll;
+      }
+      .container::-webkit-scrollbar {
+        width: 0; 
+      }
+    </style>
+  </head>
+
+  <body>
+    <br>
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 class="text-primary">Participantes</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="modal fade" class="text-dark text-decoration-none float-end" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                      <h5 class="modal-title" id="exampleModalLabel">Registrar Participante</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="=" /crear" method="POST" style="position:center;">
+                        <div class="mb-3">
+                          <label for="nya" class="form-label text align-items">Nombre Completo</label>
+                          <input id="nya" name="nya" type="text" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.nya %><% } %>">
+                        </div>
+                        <div class="mb-3" style="align-items: center">
+                          <label for="documento" class="form-label">Teléfono</label>
+                          <input id="documento" name="documento" type="number" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.documento %><% } %>">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                          </select>
+                          </div>
+                        <div class="mb-3">
+                          <label for="telefono" class="form-label">Cargo</label>
+                          <input id="telefono" name="telefono" type="text" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.telefono %><% } %>">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <form class="d-flex ml-auto ms-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tablaAlumnos" class="table table-hover" style="text-align: center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Nombre Completo</th>
+                <th>Teléfono</th>
+                <th>Entidad</th>
+                <th>Cargo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Tomas Andrés Sepúlveda Jiménez</td>
+                <td>3244567890</td>
+                <td>Real Boss</td>
+                <td>Instructor</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Teléfono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                            <option value="Futura Danza">Futura Danza</option>
+                            <option value="Fussion">Fussion</option>
+                          </select>
+                          </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Maria Isabell Marin Marin</td>
+                <td>5273524480</td>
+                <td>Real Boss</td>
+                <td>Bailarina</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Teléfono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                            <option value="Futura Danza">Futura Danza</option>
+                            <option value="Fussion">Fussion</option>
+                          </select>
+                          </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Juan Manuel Sepulveda Rodriguez</td>
+                <td>7632632513</td>
+                <td>Futura Danza</td>
+                <td>Instructor</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Teléfono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                            <option value="Futura Danza">Futura Danza</option>
+                            <option value="Fussion">Fussion</option>
+                          </select>
+                          </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Valentina Castaño Saldarriaga</td>
+                <td>4235145678</td>
+                <td>Futura Danza</td>
+                <td>Bailarina</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Teléfono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                            <option value="Futura Danza">Futura Danza</option>
+                            <option value="Fussion">Fussion</option>
+                          </select>
+                          </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Cristian Alexis Ramirez Gomez</td>
+                <td>4326785461</td>
+                <td>Fussion</td>
+                <td>Instructor</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Teléfono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="entidad" class="form-label">Entidad</label>
+                          <select class="form-select" id="entidad" name="entidad">
+                            <option value="Público">Dance GP</option>
+                            <option value="Socio">Grupo Galaxia</option>
+                            <option value="Futura Danza">Futura Danza</option>
+                            <option value="Fussion">Fussion</option>
+                          </select>
+                          </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Leonardo Herrera Najera</td>
+                <td>5438967401</td>
+                <td>Fussion</td>
+                <td>Bailarin</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Participante</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre Completo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Telefono:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Entidad:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cargo:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </div>
+    <%- include('Template/Footer') %>
+  </body>
+
+  </html>

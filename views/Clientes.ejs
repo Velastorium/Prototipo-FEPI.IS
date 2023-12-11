@@ -1,0 +1,204 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEPIS.IS</title>
+  <style>
+    .container {
+      max-width: 960px;
+      overflow-y: scroll;
+    }
+
+    .left-align-form {
+      text-align: left;
+    }
+    body{
+      overflow-y: scroll;
+    }
+    .container::-webkit-scrollbar {
+      width: 0; 
+    }
+  </style>
+</head>
+
+<body>
+  <br>
+
+<!-- Modal de Edición -->
+<div class="modal fade" id="EditarModalCliente" tabindex="-1" aria-labelledby="EditarModalClienteLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+      <h1 class="modal-title fs-5" id="EditarModalCliente">Editar Cliente</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action="/cliente/editar" method="POST">
+        <input type="hidden" id="id_editar" name="id_editar">
+        <div class="mb-3">
+          <label for="nombre_editar" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="nombre_editar" name="nombre_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="documento_editar" class="form-label">Documento:</label>
+          <input type="number" class="form-control" id="documento_editar" name="documento_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="telefono_editar" class="form-label">Teléfono:</label>
+          <input type="number" class="form-control" id="telefono_editar" name="telefono_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="direccion_editar" class="form-label">Dirección:</label>
+          <input type="text" class="form-control" id="direccion_editar" name="direccion_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="tipopersona_editar" class="form-label">Tipo Persona:</label>
+          <select class="form-select" id="tipopersona_editar" name="tipopersona_editar" required>
+            <option value="Público">Público</option>
+            <option value="Socio">Socio</option>
+          </select>              
+        </div>
+        <div class="mb-3">
+          <label for="barrio_editar" class="form-label">Barrio:</label>
+          <input type="text" class="form-control" id="barrio_editar" name="barrio_editar" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>  
+
+
+  <!-- Modal de Registro -->
+  <div class="modal fade" id="RegistroModal" tabindex="-1" aria-labelledby="Registro" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Cliente</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/cliente/crear" method="POST" class="left-align-form" id="cliente">
+            <div class="mb-3 input-control">
+              <label for="nombre_registro" class="form-label">Nombre: </label>
+              <input class="form-control" type="text" id="nombre_registro" name="nombre_registro" placeholder="Ingrese un nombre y apellido">
+            <div class="error"></div>
+            </div>
+            <div class="mb-3 input-control">
+              <label for="documento_registro" class="form-label">Documento:</label>
+              <input type="number" class="form-control" id="documento_registro" name="documento_registro" placeholder="Ingresa un número de documento">
+              <div class="error"></div>
+            </div>
+            <div class="mb-3 input-control">
+              <label for="telefono_registro" class="form-label">Teléfono:</label>
+              <input type="number" class="form-control" id="telefono_registro" name="telefono_registro" placeholder="Ingresa tú número de teléfono">
+              <div class="error"></div>
+            </div>
+            <div class="mb-3 input-control">
+              <label for="direccion_registro" class="form-label">Dirección:</label>
+              <input type="text" class="form-control" id="direccion_registro" name="direccion_registro" placeholder="Ingrese una dirección">
+              <div class="error"></div>
+            </div>
+            <div class="mb-3 input-control">
+              <label for="tipopersona_registro" class="form-label">Tipo Persona:</label>
+              <select class="form-select" id="tipopersona_registro" name="tipopersona_registro">
+                <option value="Público">Público</option>
+                <option value="Socio">Socio</option>
+              </select>
+            </div>
+            <div class="mb-3 input-control">
+              <label for="barrio_registro" class="form-label">Barrio:</label>
+              <input type="text" class="form-control" id="barrio_registro" name="barrio_registro" placeholder="Ingrese un barrio">
+              <div class="error"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  <div class="container">
+    <div class="shadow-lg p-5 mb-5 bg-body rounded">
+      <div class="d-flex justify-content-between aling-items-center">
+        <h1 class="text-primary mb-0">Clientes</h1>
+        <td class="text-center">
+          <div class="d-flex">
+            <a href="#" class="text-dark text-decoration-none me-2" data-bs-toggle="modal"
+              data-bs-target="#RegistroModal">
+              <i class="bi bi-person-add h1"></i>
+            </a>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">
+                <i class="bi bi-search"></i>
+              </button>
+            </form>
+          </div>
+        </td>
+      </div>
+      <hr>
+      <div class="table-responsive">
+        <table id="tableClientes" class="table table-hover" style="text-align:center">
+          <thead>
+            <tr>
+              <th style="display: none;">ID</th>
+              <th>Nombre</th>
+              <th>Documento</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Tipo Persona</th>
+              <th>Barrio</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cliente.forEach((cliente) => { %>
+            <tr>
+              <td style="display: none;"><%= cliente._id %></td>
+              <td><%= cliente.nombre %></td>
+              <td><%= cliente.documento %></td>
+              <td><%= cliente.telefono %></td>
+              <td><%= cliente.direccion %></td>
+              <td><%= cliente.tipopersona %></td>
+              <td><%= cliente.barrio %></td>
+              <td class="text-center">
+                <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                  <i id="toggleIcon1" class="bi bi-toggle-on text-success h3"
+                    onclick="toggleSwitch('toggleIcon1')"></i>
+                </a>
+              </td>
+              <td class="text-center">
+                <a href="#" class="text-dark text-decoration-none btnEditarCliente" data-bs-toggle="modal"
+                  data-bs-target="#EditarModalCliente">
+                  <i class="bi bi-pencil-square h4"></i>
+                </a>
+                <a href="#" class="text-dark text-decoration-none">
+                  <i class="bi bi-eye h4"></i>
+                </a>
+                <!-- <a href="/cliente/borrar/<%= cliente._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <%- include('Template/Footer') %>

@@ -1,0 +1,323 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+        overflow-y: scroll;
+      }
+      body{
+        overflow-y: scroll;
+      }
+      .container::-webkit-scrollbar {
+        width: 0; 
+      }
+    </style>
+  </head>
+
+  <body>
+    <br>
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 class="text-primary">Artículos</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="modal fade" class="text-dark text-decoration-none float-end" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                      <h5 class="modal-title" id="exampleModalLabel">Registrar Artículo</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="=" /crear" method="POST" style="position:center;">
+                        <div class="mb-3">
+                          <label for="nya" class="form-label text align-items">Nombre Artículo</label>
+                          <input id="nya" name="nya" type="text" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.nya %><% } %>">
+                        </div>
+                        <div class="mb-3" style="align-items: center">
+                          <label for="documento" class="form-label">Descripción</label>
+                          <input id="documento" name="documento" type="text" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.documento %><% } %>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="telefono" class="form-label">Detalle</label>
+                          <input id="telefono" name="telefono" type="text" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.telefono %><% } %>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="correo" class="form-label">Cantidad</label>
+                          <input id="correo" name="correo" type="number" class="form-control"
+                            value="<% if(typeof valores != 'undefined') { %><%= valores.correo %><% } %>">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <form class="d-flex ml-auto ms-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tablaAlumnos" class="table table-hover" style="text-align: center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Detalle</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Impresora XYZ-3000</td>
+                <td>Simplifica tus tareas de impresión, escaneo y copiado </td>
+                <td>Impresión a color de alta resolución, escaneo a doble cara, conexión Wi-Fi</td>
+                <td>10 unidades</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Articulo</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Descripción:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Detalle:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cantidad:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Auriculares XYZ Pro</td>
+                <td>Sumérgete en una experiencia de audio inalámbrico</td>
+                <td>Cancelación activa de ruido, batería de larga duración</td>
+                <td>30 unidades </td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Articulo</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Descripción:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Detalle:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cantidad:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Cámara Fotográfica</td>
+                <td>Captura momentos inolvidables con esta cámara DSLR</td>
+                <td>Sensor de 24 megapíxeles, enfoque automático de alta velocidad</td>
+                <td>15 unidades </td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Artículo</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Descripción:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Detalle:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cantidad:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="display: none;">01</td>
+                <td>Laptop Ultrafina</td>
+                <td>Una laptop ligera y potente diseñada para profesionales </td>
+                <td>Procesador Intel Core i7 de última generación, 16 GB de RAM</td>
+                <td> 20 unidades</td>
+                <td class="text">
+                  <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                    <i class="bi bi-toggle-on text-success h3" onclick="toggleSwitch(this)"></i>
+                  </a>
+                </td>
+                <td>
+
+                  <a href="modal fade" class="h4 text-start" data-bs-toggle="modal" data-bs-target="#editarModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title text-start" id="editarModalLabel">Editar Artículo</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Nombre:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Descripción:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Detalle:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-body text-start">
+                          <label for="nuevoTexto" class="form-label">Cantidad:</label>
+                          <input type="text" class="form-control" id="nuevoTexto">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="text-dark text-decoration-none">
+                    <i class="bi bi-eye h4"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </div>
+    <%- include('Template/Footer') %>
+  </body>
+
+  </html>

@@ -1,0 +1,71 @@
+<%- include ('Template/Cabecera', {tituloweb:'Pagina de inicio'})%>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+        .container {
+            max-width: 960px;
+        }
+    </style>
+    </head>
+
+    <div class="container">
+        <h1 class="text-primary">Alumnos</h1>
+        <div class="shadow-lg p-5 mb-5 bg-body rounded">
+            <h4>Datos del Alumno</h4>
+            <form action="/crear" method="POST">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input id="nombre" name="nombre" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input id="edad" name="edad" type="number" class="form-control" required>
+                </div>
+
+        </div>
+        <button type="submit" class="w-100 btn btn-guardar btn-lg"><i class="bi bi-save"></i>Registrar Carga</button>
+        </form>
+
+        <table id="tablaAlumnos" class="table mt-4">
+            <thead>
+                <tr>
+                    <th style="display: none;">ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="modalAlumno" class="modal fade" tabindex="-1" aria-labelledby="modalAlumno" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Información</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/editar" method="post">
+                        <input name="id_editar" id="id_editar" type="text" hidden>
+
+                        <div class="mb-3">
+                            <label for="nombre_editar" class="col-form-label">Nombre:</label>
+                            <input id="nombre_editar" name="nombre_editar" type="text" class="form-control" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edad_editar" class="col-form-label">Edad:</label>
+                            <input id="edad_editar" name="edad_editar" type="number" class="form-control" value="">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('Template/Footer')%>

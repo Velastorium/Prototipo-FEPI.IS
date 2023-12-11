@@ -1,0 +1,194 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+        overflow-y: scroll;
+      }
+      body{
+        overflow-y: scroll;
+      }
+      .container::-webkit-scrollbar {
+        width: 0; 
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Modal de Edición -->
+<div class="modal fade" id="EditarModalAlquileres" tabindex="-1" aria-labelledby="EditarModalAlquilerLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+      <h1 class="modal-title fs-5" id="EditarModalAlquileres">Editar Alquiler</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action="/alquiler/editar" method="POST">
+        <input type="hidden" id="id_editar" name="id_editar">
+        <div class="mb-3">
+          <label for="cliente_editar" class="form-label">Cliente:</label>
+          <input type="text" class="form-control" id="cliente_editar" name="cliente_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="fechaactividad_editar" class="form-label">Fecha Actividad:</label>
+          <input type="date" class="form-control" id="fechaactividad_editar" name="fechaactividad_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="fechaentrega_editar" class="form-label">Fecha Entrega:</label>
+          <input type="date" class="form-control" id="fechaentrega_editar" name="fechaentrega_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="fecharetorno_editar" class="form-label">Fecha Retorno:</label>
+          <input type="date" class="form-control" id="fecharetorno_editar" name="fecharetorno_editar" required>
+        </div> 
+        <div class="mb-3">
+          <label for="direccion_editar" class="form-label">Dirección:</label>
+          <input type="text" class="form-control" id="direccion_editar" name="direccion_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="barrio_editar" class="form-label">Barrio:</label>
+          <input type="text" class="form-control" id="barrio_editar" name="barrio_editar" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div> 
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="RegistroModalAlquiles" tabindex="-1" aria-labelledby="Registro" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="RegistroModalAlquiles">Registro Alquiler</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/alquiler/crear" method="POST" class="left-align-form" id="alquiler">
+              <div class="mb-3 input-control">
+                <div class="mb-3 input-control">
+                  <label for="cliente_registro" class="form-label">Cliente:</label>
+                  <input type="text" class="form-control" id="cliente_registro" name="cliente_registro" placeholder="Ingresa un cliente">
+                  <div class="error"></div>
+                </div>
+                <label for="fechaactividad_registro" class="form-label">Fecha Actividad:</label>
+                <input type="date" class="form-control" id="fechaactividad_registro" name="fechaactividad_registro" placeholder="Ingresa la fecha de la actividad">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="fechaentrega_registro" class="form-label">Fecha Entrega:</label>
+                <input type="date" class="form-control" id="fechaentrega_registro" name="fechaentrega_registro" placeholder="Ingresa la fecha de entrega">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="fecharetorno_registro" class="form-label">Fecha Retorno:</label>
+                <input type="date" class="form-control" id="fecharetorno_registro" name="fecharetorno_registro" placeholder="Ingresa la fecha de retorno">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="direccion_registro" class="form-label">Dirección:</label>
+                <input type="text" class="form-control" id="direccion_registro" name="direccion_registro" placeholder="Ingresa una dirección">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="barrio_registro" class="form-label">Barrio:</label>
+                <input type="text" class="form-control" id="barrio_registro" name="barrio_registro" placeholder="Ingresa un barrio">
+                <div class="error"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between aling-items-center">
+          <h1 class="text-primary mb-0">Alquileres</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="#" class="text-dark text-decoration-none me-2" data-bs-toggle="modal"
+                data-bs-target="#RegistroModalAlquiles">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tableClientes" class="table table-hover" style="text-align:center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Dirección</th>
+                <th>Fecha Actividad</th>
+                <th>Fecha entrega</th>
+                <th>Fecha Retorno</th>
+                <th>Cliente</th>
+                <th>Barrio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% alquiler.forEach((alquiler) => { %>
+                <tr>
+                  <td style="display: none;"><%= alquiler._id %></td>
+                  <td><%= alquiler.direccion %></td>
+                  <td><%= alquiler.fechaactividad %></td>
+                  <td><%= alquiler.fechaentrega %></td>
+                  <td><%= alquiler.fecharetorno %></td>
+                  <td><%= alquiler.cliente %></td>
+                  <td><%= alquiler.barrio %></td>
+                  <td class="text-center">
+                    <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                      <i id="toggleIcon1" class="bi bi-toggle-on text-success h3"
+                        onclick="toggleSwitch('toggleIcon1')"></i>
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <a href="#" class="text-dark text-decoration-none btnEditarAlquiler" data-bs-toggle="modal"
+                      data-bs-target="#EditarModalAlquileres">
+                      <i class="bi bi-pencil-square h4"></i>
+                    </a>
+                    <a href="#" class="text-dark text-decoration-none">
+                      <i class="bi bi-eye h4"></i>
+                    </a>
+                    <!-- <a href="/alquiler/borrar/<%= alquiler._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%- include('Template/Footer') %>
+  </body>
+
+  </html>

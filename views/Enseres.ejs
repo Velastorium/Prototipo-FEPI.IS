@@ -1,0 +1,176 @@
+<%- include('Template/Cabecera', { tituloweb: 'Pagina de inicio' }) %>
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEPIS.IS</title>
+    <style>
+      .container {
+        max-width: 960px;
+        overflow-y: scroll;
+      }
+      body{
+        overflow-y: scroll;
+      }
+      .container::-webkit-scrollbar {
+        width: 0; 
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Modal de Edición -->
+<div class="modal fade" id="EditarModalEnser" tabindex="-1" aria-labelledby="EditarModalEnserLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+      <h1 class="modal-title fs-5" id="EditarModalEnser">Editar Enser</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action="/enser/editar" method="POST" >
+        <input type="hidden" id="id_editar" name="id_editar">
+        <div class="mb-3">
+          <label for="nombre_editar" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="nombre_editar" name="nombre_editar" required>
+        </div>
+        <div class="mb-3">
+          <label for="cantidad_editar" class="form-label">Cantidad:</label>
+          <input type="number" class="form-control" id="cantidad_editar" name="cantidad_editar" required>
+          
+        </div>
+        <div class="mb-3">
+          <label for="precio_editar" class="form-label">Precio:</label>
+          <input type="number" class="form-control" id="precio_editar" name="precio_editar" required>
+          
+        </div>
+        <div class="mb-3">
+          <label for="sede_editar" class="form-label">Sede:</label>
+          <input type="text" class="form-control" id="sede_editar" name="sede_editar" required>
+          
+        </div> 
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div> 
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="RegistroModalEnseres" tabindex="-1" aria-labelledby="Registro" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h1 class="modal-title fs-5" id="RegistroModalEnseres">Registro de Enseres</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/enser/crear" method="POST" class="left-align-form" id="enseres">
+              <div class="mb-3 input-control">
+                <label for="nombre_registro" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre_registro" name="nombre_registro" placeholder="Ingresa un nombre de enser">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="cantidad_registro" class="form-label">Cantidad:</label>
+                <input type="number" class="form-control" id="cantidad_registro" name="cantidad_registro" placeholder="Ingresa la cantidad">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="precio_registro" class="form-label">Precio:</label>
+                <input type="number" class="form-control" id="precio_registro" name="precio_registro" placeholder="Ingresa el precio">
+                <div class="error"></div>
+              </div>
+              <div class="mb-3 input-control">
+                <label for="sede_registro" class="form-label">Sede:</label>
+                <input type="text" class="form-control" id="sede_registro" name="sede_registro" placeholder="Ingresa la sede">
+                <div class="error"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="container">
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <div class="d-flex justify-content-between aling-items-center">
+          <h1 class="text-primary mb-0">Enseres</h1>
+          <td class="text-center">
+            <div class="d-flex">
+              <a href="#" class="text-dark text-decoration-none me-2" data-bs-toggle="modal"
+                data-bs-target="#RegistroModalEnseres">
+                <i class="bi bi-person-add h1"></i>
+              </a>
+
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table id="tableClientes" class="table table-hover" style="text-align:center">
+            <thead>
+              <tr>
+                <th style="display: none;">ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Sede</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% enser.forEach((enser)=> { %>
+                <tr>
+                  <td style="display: none;"><%= enser._id %></td>
+                  <td><%= enser.nombre %></td>
+                  <td><%= enser.cantidad %></td>
+                  <td><%= enser.precio %></td>
+                  <td><%= enser.sede %></td>
+                  <td class="text-center">
+                    <a href="#" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Toggle">
+                      <i id="toggleIcon1" class="bi bi-toggle-on text-success h3"
+                        onclick="toggleSwitch('toggleIcon1')"></i>
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <a href="#" class="text-dark text-decoration-none btnEditarEnser" data-bs-toggle="modal"
+                      data-bs-target="#EditarModalEnser">
+                      <i class="bi bi-pencil-square h4"></i>
+                    </a>
+                    <a href="#" class="text-dark text-decoration-none">
+                      <i class="bi bi-eye h4"></i>
+                    </a>
+                    <!-- <a href="/enser/borrar/<%= enser._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <%- include('Template/Footer') %>
+  </body>
+
+  </html>
